@@ -9,18 +9,18 @@
 <body>
   <div class="container">
     <div class="form-container">
-      <h2>Login</h2>
+      <h2 id="form-title">Login</h2>
       <div id="login-div">
         <input type="email" id="email" placeholder="Email" required>
         <input type="password" id="password" placeholder="Password" required>
         <button onclick="login()">Login</button>
       </div>
-      <h2>Sign Up</h2>
-      <div id="signup-div">
+      <div id="signup-div" style="display: none;">
         <input type="email" id="signup-email" placeholder="Email" required>
         <input type="password" id="signup-password" placeholder="Password" required>
         <button onclick="signUp()">Sign Up</button>
       </div>
+      <button id="toggle-button" onclick="toggleForm()">Sign Up</button>
     </div>
   </div>
   
@@ -60,6 +60,7 @@
           const user = userCredential.user;
           console.log('User logged in:', user);
           alert('Logged in successfully');
+          window.location.href = "main.html"; // Redirect to main.html
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -80,6 +81,7 @@
           const user = userCredential.user;
           console.log('User signed up:', user);
           alert('Signed up successfully');
+          window.location.href = "main.html"; // Redirect to main.html
         })
         .catch((error) => {
           const errorCode = error.code;
@@ -87,6 +89,26 @@
           console.error('Error signing up:', errorCode, errorMessage);
           alert('Error: ' + errorMessage);
         });
+    };
+
+    // Toggle between login and sign-up forms
+    window.toggleForm = function() {
+      const loginDiv = document.getElementById('login-div');
+      const signupDiv = document.getElementById('signup-div');
+      const formTitle = document.getElementById('form-title');
+      const toggleButton = document.getElementById('toggle-button');
+
+      if (signupDiv.style.display === 'none') {
+        signupDiv.style.display = 'block';
+        loginDiv.style.display = 'none';
+        formTitle.textContent = 'Sign Up';
+        toggleButton.textContent = 'Back to Login';
+      } else {
+        signupDiv.style.display = 'none';
+        loginDiv.style.display = 'block';
+        formTitle.textContent = 'Login';
+        toggleButton.textContent = 'Sign Up';
+      }
     };
   </script>
 </body>
